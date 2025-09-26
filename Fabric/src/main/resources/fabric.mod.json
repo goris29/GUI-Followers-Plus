@@ -1,27 +1,25 @@
 {
   "schemaVersion": 1,
-  "id": "guifollowers",
-  "version": "4.0",
+  "id": "guifollowersplus",
+  "version": "1.0",
 
-  "name": "GUI Followers",
-  "description": "[Client] Shows a list in the GUI/HUD with all tamed non-sitting followers around the player.",
-  "authors": [ "Rick South" ],
+  "name": "GUI Followers Plus",
+  "description": "[Client] Shows a list in the GUI/HUD with all tamed followers around the player.",
+  "authors": [ "Trevor Shires" ],
   "contact": {
-    "homepage": "https://serilum.com/mod/gui-followers",
-    "sources": "https://github.com/Serilum/GUI-Followers",
-    "issues": "https://github.com/Serilum/.issue-tracker/labels/Mod:%20GUI%20Followers"
+    "sources": "https://github.com/goris29/GUI-Followers-Plus"
   },
 
   "license": "All Right Reserved",
   "icon": "icon.png",
 
   "environment": "*",
-  "entrypoints": { "main": [ "com.natamus.guifollowers.ModFabric" ], "client": [ "com.natamus.guifollowers.ModFabricClient" ], "modmenu": [ "com.natamus.guifollowers.fabric.config.IntegrateModMenu" ] },
+  "entrypoints": { "main": [ "com.natamus.guifollowersplus.ModFabric" ], "client": [ "com.natamus.guifollowersplus.ModFabricClient" ], "modmenu": [ "com.natamus.guifollowersplus.fabric.config.IntegrateModMenu" ] },
 
   "depends": {
     "fabricloader": ">=0.15.0",
     "fabric-api": "*",
-    "minecraft": ">=1.21",
+    "minecraft": ">=1.21", 
     "java": ">=21",
     "collective": ">=8.4"
   },
