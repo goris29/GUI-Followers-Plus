@@ -11,6 +11,8 @@ public class ConfigHandler extends DuskConfig {
 	public static HashMap<String, List<String>> configMetaData = new HashMap<String, List<String>>();
 
 	@Entry public static String followerListHeaderFormat = "Followers:";
+	@Entry public static boolean showSittingFollowers = true;
+	@Entry public static boolean enableFollowerIDs = true;
 	@Entry public static boolean showFollowerHealth = true;
 	@Entry public static String followerHealthFormat = ": <health>%";
 	@Entry public static boolean showFollowerDistance = true;
@@ -29,6 +31,12 @@ public class ConfigHandler extends DuskConfig {
 	public static void initConfig() {
 		configMetaData.put("followerListHeaderFormat", Arrays.asList(
 			"The header text above the follower list."
+		));
+		configMetaData.put("showSittingFollowers", Arrays.asList(
+			"If enabled, shows a separate list for sitting/tamed followers."
+		));
+		configMetaData.put("enableFollowerIDs", Arrays.asList(
+			"If enabled, assigns unique numerical IDs to followers and displays them as nameplates."
 		));
 		configMetaData.put("showFollowerHealth", Arrays.asList(
 			"If enabled, shows the follower's health in the GUI list."

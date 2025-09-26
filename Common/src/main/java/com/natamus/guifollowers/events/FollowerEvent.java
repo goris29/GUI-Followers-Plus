@@ -3,6 +3,7 @@ package com.natamus.guifollowers.events;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.natamus.guifollowers.commands.FollowerGlowCommand;
 import com.natamus.guifollowers.config.ConfigHandler;
 import com.natamus.guifollowers.data.Variables;
 
@@ -51,29 +52,61 @@ public class FollowerEvent {
 				continue;
 			}
 			
+			// Check if entity is sitting
 			if (te.isInSittingPose()) {
+				// Add to sitting followers list if not already there
+				boolean existsInSitting = false;
+				for (Entity entity : Variables.sittingfollowers) {
+					if (entity.getUUID().equals(ea.getUUID())) {
+						existsInSitting = true;
+						break;
+					}
+				}
+				
+				if (!existsInSitting) {
+					Variables.sittingfollowers.add(ea);
+					// Assign ID and update name
+					Variables.assignFollowerId(ea);
+					// Apply glow if enabled
+					FollowerGlowCommand.applyGlowToNewFollower(ea);
+				}
+				
+				// Remove from active followers if it was there
+				Variables.activefollowers.removeIf(entity -> entity.getUUID().equals(ea.getUUID()));
 				continue;
 			}
 
-			boolean exists = false;
+			// Add to active followers list if not already there
+			boolean existsInActive = false;
 			for (Entity entity : Variables.activefollowers) {
 				if (entity.getUUID().equals(ea.getUUID())) {
-					exists = true;
+					existsInActive = true;
 					break;
 				}
 			}
 
-			if (!exists) {
+			if (!existsInActive) {
 				Variables.activefollowers.add(ea);
+				// Assign ID and update name
+				Variables.assignFollowerId(ea);
+				// Apply glow if enabled
+				FollowerGlowCommand.applyGlowToNewFollower(ea);
 			}
+			
+			// Remove from sitting followers if it was there (pet stood up)
+			Variables.sittingfollowers.removeIf(entity -> entity.getUUID().equals(ea.getUUID()));
 		}
 	}
 	
 	public static void onPlayerLogout(Level world, Player player) {
+		Variables.clearAllFollowerIds();
 		Variables.activefollowers = new ArrayList<Entity>();
+		Variables.sittingfollowers = new ArrayList<Entity>();
 	}
 	
 	public static void onHotkeyPress() {
+		Variables.clearAllFollowerIds();
 		Variables.activefollowers = new ArrayList<Entity>();
+		Variables.sittingfollowers = new ArrayList<Entity>();
 	}
 }

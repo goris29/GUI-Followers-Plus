@@ -2,8 +2,10 @@ package com.natamus.guifollowers;
 
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
+import com.natamus.guifollowers.commands.FollowerGlowCommand;
 import com.natamus.guifollowers.util.Reference;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
 public class ModFabric implements ModInitializer {
 	
@@ -22,7 +24,10 @@ public class ModFabric implements ModInitializer {
 	}
 
 	private void loadEvents() {
-
+		// Register commands
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+			FollowerGlowCommand.register(dispatcher);
+		});
 	}
 
 	private static void setGlobalConstants() {
